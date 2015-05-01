@@ -26,7 +26,7 @@ public class ProtocoloCS {
 
 	
 	
-	public void cerrarConexiones( InputStreamReader input, BufferedReader buff, PrintWriter printer, OutputStream output, Socket socket) throws IOException {
+	public static void cerrarConexiones( InputStreamReader input, BufferedReader buff, PrintWriter printer, OutputStream output, Socket socket) throws IOException {
 		buff.close();
 		printer.close();
 		output.close();
@@ -34,7 +34,7 @@ public class ProtocoloCS {
 		socket.close();	
 	}
 
-	public void atenderCliente(Socket socket)
+	public static void atenderCliente(Socket socket)
 	{
 		try
 		{
@@ -109,11 +109,12 @@ public class ProtocoloCS {
 											boolean respuesta = seguridad.verificarIntegridad(coordenadas.getBytes(), llaveSimetrica, hash, hmac);
 											if(respuesta){
 												printer.println("RTA:OK");
+												
 											}
 											else{
 												printer.println("RTA:ERROR");
 											}
-										
+											cerrarConexiones(input, buff, printer, output, socket);
 										}
 										else{
 											System.out.println("No llego el mensaje esperado, este fue el mensaje: " + linea6);
