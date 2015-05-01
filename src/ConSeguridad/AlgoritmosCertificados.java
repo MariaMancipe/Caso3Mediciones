@@ -50,7 +50,6 @@ public class AlgoritmosCertificados {
 		CertificateFactory creador = CertificateFactory.getInstance("X.509");
 		InputStream in = new ByteArrayInputStream(bytes);
 		X509Certificate certificado = (X509Certificate) creador.generateCertificate(in);
-		certificado.checkValidity();
 		return certificado;
 	}
 	

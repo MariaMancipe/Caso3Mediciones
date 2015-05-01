@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 
 
 public class ServidorSS implements Runnable{
-public static int TIME_OUT = 10000;
+public static int TIME_OUT = 20000;
 	
 	public static int PUERTO = 80;
 	
