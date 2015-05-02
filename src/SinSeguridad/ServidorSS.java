@@ -23,6 +23,8 @@ public static int TIME_OUT = 20000;
 	
 	private static int id;
 	
+	private static int cantidad;
+	
 	public static void main(String[] args)
 	{
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -30,7 +32,7 @@ public static int TIME_OUT = 20000;
 		{
 			socket = new ServerSocket(PUERTO);
 			sem = new Semaphore(1);
-			
+			cantidad = 0;
 			ServidorSS[] executors = new ServidorSS[NTHREADS];
 			ExecutorService executor = Executors.newFixedThreadPool(NTHREADS);
 			for( int i =0; i<NTHREADS; i++){
@@ -72,6 +74,7 @@ public static int TIME_OUT = 20000;
 			sem.release();
 			System.out.println("Thread " + id + " recibe a un cliente.");
 			ProtocoloSS.atenderCliente(s);
+			cantidad++;
 			System.out.println("Atendiendo request con el hilo " + id);
 		}
 	}

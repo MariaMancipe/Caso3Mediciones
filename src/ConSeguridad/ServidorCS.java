@@ -24,6 +24,8 @@ public class ServidorCS implements Runnable{
 	
 	private static int id;
 	
+	private static int cantidad;
+	
 	public static void main(String[] args)
 	{
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -31,6 +33,7 @@ public class ServidorCS implements Runnable{
 		{
 			socket = new ServerSocket(PUERTO);
 			sem = new Semaphore(1);
+			cantidad = 0;
 			
 			ServidorCS[] executors = new ServidorCS[NTHREADS];
 			ExecutorService executor = Executors.newFixedThreadPool(NTHREADS);
@@ -71,9 +74,10 @@ public class ServidorCS implements Runnable{
 				continue;
 			}
 			sem.release();
-			System.out.println("Thread " + id + " recibe a un cliente.");
+			System.out.println("Thread " + (id+1) + " recibe a un cliente.");
 			ProtocoloCS.atenderCliente(s);
-			System.out.println("Atendiendo request con el hilo " + id);
+			cantidad++;
+			System.out.println("Atendiendo request con el hilo " + (id+1));
 		}
 	}
 	
